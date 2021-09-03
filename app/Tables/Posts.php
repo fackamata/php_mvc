@@ -5,7 +5,12 @@ class Posts{
 
     public static function getAll($db){
 
-        return $db->query("SELECT * FROM posts ORDER BY id DESC", __CLASS__); // __CLASS__ pour dire la classe dans laquel on se situe
+        return $db->query("
+        SELECT posts.*, categorie.NomCategorie as category 
+        FROM posts 
+        LEFT JOIN categorie 
+        ON posts.categorie_id = categorie.CategorieId 
+        ORDER BY id DESC", __CLASS__); // __CLASS__ pour dire la classe dans laquel on se situe
     }
 
     /**
@@ -17,6 +22,13 @@ class Posts{
         $method = 'get'.ucfirst($key);
         $this->$key = $this->$method();
         return $this->$key;
+    }
+
+    /**
+     * fonction pour avoir un extrait de 120 caractères de notre text
+     */
+    public function getExcerpt(){
+        return substr($this->text, 0, 120)."<a href='".$this->url."'> [...]</a>"; 
     }
 
     public function getId(){

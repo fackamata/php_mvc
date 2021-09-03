@@ -4,11 +4,12 @@ namespace App\Tables;
 
 use \App\Config;
 
-class Categories{
+class Categories extends Table{
     
-    private static $table = "categories";
+    protected static $table = "categorie";
 
     public static function getAll(){
-        return Config::getDb()->query('SELECT * FROM '.self::$table.'ORDER BY id', __CLASS__);
+        return Config::getDb()->query(
+            "SELECT * FROM ".self::$table." ORDER BY Categorieid ", __CLASS__);
     }
 }
