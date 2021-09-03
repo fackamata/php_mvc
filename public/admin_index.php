@@ -11,14 +11,13 @@ App\Autoloader::register();
 $p = isset($_GET['p']) ? $_GET['p'] : "home" ;
 
 // on détermine le parcours pour afficher la vue
-$view = is_file("../views/page/$p.php") ? "../views/page/$p.php" : "../views/page/404.php";
+$view = is_file("../views/admin/$p.php") ? "../views/admin/$p.php" : "../views/admin/404.php";
 
 
 // on fait une requête sur la DB en fonction de la route
 switch($p){
     case "home":
-        $count = App\Tables\Posts::getCount();
-        $posts = App\Tables\Posts::getAll();
+   
         break;
     case "single":
         $id = isset($_GET['id']) && ((int)$_GET['id']*1)>0 ? $_GET['id'] : 22;
@@ -44,4 +43,4 @@ switch($p){
 ob_start(); // démarre la temporisation de sortie
 require $view;
 $view_content = ob_get_clean(); // fait le get content et le nettoie la mémoire tampon
-require "../views/templates/default.php";
+require "../views/templates/adm.php";
