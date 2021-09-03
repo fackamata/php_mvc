@@ -1,27 +1,30 @@
 <?php
 namespace App\Tables;
 
-class Posts{
+use \App\Config;
 
-    public static function getAll($db){
+class Posts extends Table{
 
-        return $db->query("
-        SELECT posts.*, categorie.NomCategorie as category 
+    public static function getAll(){
+
+        return Config::getDb()->query("
+        SELECT posts.*, categories.NomCategorie as category 
         FROM posts 
-        LEFT JOIN categorie 
-        ON posts.categorie_id = categorie.CategorieId 
+        LEFT JOIN categories 
+        ON posts.categorie_id = categories.id 
         ORDER BY id DESC", __CLASS__); // __CLASS__ pour dire la classe dans laquel on se situe
     }
 
-    /**
-     *  si une propriété n'existe pas mais qu'elle appelé
-     * cette fonction créer à la volé
-     */
-    public function __get($key)
-    {
-        $method = 'get'.ucfirst($key);
-        $this->$key = $this->$method();
-        return $this->$key;
+    public static function getCat($cat_id){
+
+        return Config::getDb()->query("
+        SELECT posts.*, categories.NomCategorie as category 
+        FROM posts 
+        LEFT JOIN categories 
+        ON posts.categorie_id = categories.id 
+        WHERE categories.id =?
+        ORDER BY id DESC"
+        , __CLASS__, [$cat_id]); // __CLASS__ pour dire la classe dans laquel on se situe
     }
 
     /**

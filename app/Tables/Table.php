@@ -20,4 +20,26 @@ class Table{
         return static::$table;
     }
 
+    public static function getAll(){
+        return Config::getDb()->query(
+            "SELECT * FROM ".static::getTable()." ORDER BY id", get_called_class());
+    }
+
+    public static function getOne($id){
+        return Config::getDb()->query(
+            "SELECT * FROM ".static::getTable()." WHERE id=?", get_called_class() ,[$id]);
+    }
+
+    /**
+     *  si une propriété n'existe pas mais qu'elle appelé
+     * cette fonction créer à la volé
+     */
+    public function __get($key){
+        $method = 'get'.ucfirst($key);
+        $this->$key = $this->$method();
+        return $this->$key;
+    }
+
+    
+
 }
