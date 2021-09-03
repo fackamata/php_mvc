@@ -17,11 +17,14 @@ $view = is_file("../views/$p.php") ? "../views/$p.php" : "../views/404.php";
 // on fait une requête sur la DB en fonction de la route
 switch($p){
     case "home":
+        $count = App\Tables\Posts::getCount();
         $posts = App\Tables\Posts::getAll();
         break;
     case "single":
         $id = isset($_GET['id']) && ((int)$_GET['id']*1)>0 ? $_GET['id'] : 22;
         $posts = \App\Tables\Posts::getOne($id);
+        $siteTitle = \App\Config::getTitle();
+        \App\Config::setTitle($posts[0]->title. " | ".$siteTitle );
         break;
     case "categories":
         $categories = App\Tables\Categories::getAll();

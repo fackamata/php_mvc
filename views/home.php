@@ -2,6 +2,10 @@
     <div class="col-12">
         <h1 class="text-center">Home</h1>
     </div>
+    <div class="col-12">
+        <h2 class="text-center">Il y a <?= $count[0]->count ?> posts</h2>
+
+    </div>
     <div class="container-fluid">
         <div class="d-flex flex-wrap justify-content-center">
             <?php 

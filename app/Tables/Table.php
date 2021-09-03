@@ -25,6 +25,11 @@ class Table{
             "SELECT * FROM ".static::getTable()." ORDER BY id", get_called_class());
     }
 
+    public static function getCount(){
+        return Config::getDb()->query(
+            "SELECT DISTINCT COUNT(id) as count FROM ".static::getTable(), get_called_class());
+    }
+
     public static function getOne($id){
         return Config::getDb()->query(
             "SELECT * FROM ".static::getTable()." WHERE id=?", get_called_class() ,[$id]);
