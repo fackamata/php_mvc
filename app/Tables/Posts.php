@@ -3,6 +3,11 @@ namespace App\Tables;
 
 class Posts{
 
+    public static function getAll($db){
+
+        return $db->query("SELECT * FROM posts ORDER BY id DESC", __CLASS__); // __CLASS__ pour dire la classe dans laquel on se situe
+    }
+
     /**
      *  si une propriété n'existe pas mais qu'elle appelé
      * cette fonction créer à la volé
