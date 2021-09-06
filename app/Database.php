@@ -39,11 +39,11 @@ class Database
     /**
      * fonction qui effectue la requête dans la base de données
      */
-    public function query($statement, $class_name, $param=[]){
+    public function query($statement, $class, $param=[]){
         $stmt = $this->getPDO()->prepare($statement);
         $stmt->execute($param);
-        // FETCH_CLASS pointe vers une classe, ici $class_name
-        $result = $stmt->fetchAll(PDO::FETCH_CLASS,$class_name);
+        // FETCH_CLASS pointe vers une classe, ici $class
+        $result = $class === null ? $stmt->fetch(PDO::FETCH_OBJ) : $stmt->fetchAll(PDO::FETCH_CLASS,$class) ;
         return $result;
     }
 

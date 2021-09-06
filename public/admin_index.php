@@ -10,28 +10,43 @@ App\Autoloader::register();
 // on récupère la var p pour déterminer la page à afficher
 $p = isset($_GET['p']) ? $_GET['p'] : "home" ;
 
+session_start();
+
+//              Autentification 
+if ($p === "logout"){
+    session_unset();
+    // session_destroy(); // redondant
+    //header("Location:./");
+}
+
+$auth = new \App\Auth\DbAuth();
+if(!$auth->logged()){
+    // header("HTTP/1.0 401 Unauthorized");
+    // die('Not authorized');
+    // $form = new \App\HTML\BootstrapForm($_POST);
+    $p = "login";
+}
+
 // on détermine le parcours pour afficher la vue
 $view = is_file("../views/admin/$p.php") ? "../views/admin/$p.php" : "../views/admin/404.php";
 
 
 // on fait une requête sur la DB en fonction de la route
 switch($p){
-    case "home":
+    case "login":
    
         break;
+    case "home":
+
+        break;
     case "single":
-        $id = isset($_GET['id']) && ((int)$_GET['id']*1)>0 ? $_GET['id'] : 22;
-        $posts = \App\Tables\Posts::getOne($id);
-        $siteTitle = \App\Config::getTitle();
-        \App\Config::setTitle($posts[0]->title. " | ".$siteTitle );
+
         break;
     case "categories":
-        $categories = App\Tables\Categories::getAll();
+
         break;
     case "category":
-        $id = isset($_GET['id']) && ((int)$_GET['id']*1)>0 ? $_GET['id'] : 1;
-        $category = App\Tables\Categories::getOne($id);
-        $posts = App\Tables\Posts::getCat($id);
+
         break;
 
 } 
