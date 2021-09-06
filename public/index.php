@@ -17,8 +17,8 @@ $view = is_file("../views/page/$p.php") ? "../views/page/$p.php" : "../views/pag
 // on fait une requête sur la DB en fonction de la route
 switch($p){
     case "home":
-        $count = App\Tables\Posts::getCount();
-        $posts = App\Tables\Posts::getAll();
+        $count = \App\Tables\Posts::getCount();
+        $posts = \App\Tables\Posts::getAll();
         break;
     case "single":
         $id = isset($_GET['id']) && ((int)$_GET['id']*1)>0 ? $_GET['id'] : 22;

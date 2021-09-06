@@ -2,7 +2,7 @@
 
 namespace App;
 
-use PDO, PDOException;
+use \PDO, \PDOException;
 
 class Database
 {

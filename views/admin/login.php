@@ -5,7 +5,7 @@ if (!empty($_POST)) {
     $user = $auth->login($_POST["email"], $_POST["password"]);
     // \App\Utils::var_dump_pre($user); // => return user = false sinon l'objet user
     if ($user) {
-        header("Location:./admin.php?p=home");
+        header("Location:./admin_index.php?p=home");
     } else {
         $error_html = <<<'EOT'
         <div class="col-12">
@@ -23,7 +23,7 @@ if (!empty($_POST)) {
     </div>
     <?= $error_html ?>
     <div class="col-12">
-        <form action="admin.php" method="POST" class="mb-3">
+        <form action="admin_index.php" method="POST" class="mb-3">
             <?php
             echo $form->input("email", "email", true);
             echo $form->input("password", "password", true);
